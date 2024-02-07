@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>ユーザー登録</title>
+    <style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 20px;
+    }
+    h1 {
+        color: #333;
+    }
+    form {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    label {
+        display: block;
+        margin-bottom: 8px;
+    }
+    input[type="text"] {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+    input[type="submit"] {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+    </style>
+</head>
+<body>
+    <h1>ユーザー登録</h1>
+    <form action="result.html">
+        <label for="last-name">ユーザー名（姓）:</label>
+        <input type="text" id="last-name" name="last-name"><br>
+        <label for="first-name">ユーザー名（名）:</label>
+        <input type="text" id="first-name" name="first-name"><br>
+        <label for="last-name-kana">ユーザー名（姓）（フリガナ）:</label>
+        <input type="text" id="last-name-kana" name="last-name-kana"><br>
+        <label for="first-name-kana">ユーザー名（名）（フリガナ）:</label>
+        <input type="text" id="first-name-kana" name="first-name-kana"><br>
+        <input type="submit" value="登録">
+    </form>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+          const registrationForm = document.querySelector("form");
+          const errorMessage = document.createElement("p");
+          errorMessage.style.color = "red";
+          registrationForm.insertBefore(errorMessage, registrationForm.firstChild);
+        
+          registrationForm.addEventListener("submit", function(e) {
+            const firstName = document.querySelector("#first-name").value;
+            const lastName = document.querySelector("#last-name").value;
+            const firstNameKana = document.querySelector("#first-name-kana").value;
+            const lastNameKana = document.querySelector("#last-name-kana").value;
+            
+            if (firstName === "" || lastName === "") {
+              e.preventDefault(); // フォームの送信を阻止
+              errorMessage.textContent = "ユーザー名（姓）とユーザー名（名）は必須です。";
+            } else if (firstNameKana === "" || !firstNameKana.match(/^[\u30A0-\u30FF]+$/) || lastNameKana === "" || !lastNameKana.match(/^[\u30A0-\u30FF]+$/)) {
+              e.preventDefault(); // フォームの送信を阻止
+              errorMessage.textContent = "ユーザー名（姓）（フリガナ）とユーザー名（名）（フリガナ）は必須で、全角カタカナで入力してください。";
+            } else {
+              errorMessage.textContent = "";
+            }
+          });
+        });
+    </script>
+</body>
+</html>
